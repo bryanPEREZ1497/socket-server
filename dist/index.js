@@ -25,37 +25,52 @@ const questions = [
         type: 'rawlist',
         name: 'initialOptions',
         message: 'Please, select one',
-        choices: ['Watch inventory', 'Sell a drink'],
+        choices: ['Watch inventory', 'Sell a drink', 'Exit'],
     },
     {
         type: 'list',
         name: 'size',
         message: 'Select one size for the drink',
-        choices: ['small', 'medium', 'large'],
+        choices: ['Large', 'Medium', 'Small'],
         when(answers) {
             return answers.initialOptions === 'Sell a drink';
+        },
+        filter(val) {
+            return val.toLowerCase();
         },
     },
     {
         type: 'list',
         name: 'flavor',
         message: 'Select one flavor for the drink',
-        choices: ['banana', 'strawberryfries', 'mango'],
+        choices: ['Banana', 'Strawberry', 'Mango'],
         when(answers) {
             return answers.initialOptions === 'Sell a drink';
         },
+        filter(val) {
+            return val.toLowerCase();
+        },
     },
 ];
-inquirer_1.default.prompt(questions).then((answers) => {
-    console.log('\nInventory:');
-    if (answers.initialOptions === 'Watch inventory') {
-        // console.log(JSON.stringify(inventory.showStock(), null, '  '));
-        console.table(inventory.showStock(), ['name', 'amount']);
-    }
-    if (answers.initialOptions === 'Sell a drink') {
-        const { flavor, size } = answers;
-        console.log(seller.sellDrink(flavor, size));
-        console.log(seller.sellsList);
-        console.table(inventory.showStock(), ['name', 'amount']);
-    }
-});
+function menuPrompt() {
+    inquirer_1.default.prompt(questions)
+        .then((answers) => {
+        if (answers.initialOptions === 'Exit') {
+            console.log('\nGood Bye');
+            return;
+        }
+        if (answers.initialOptions === 'Watch inventory') {
+            console.log('\nInventory:');
+            console.table(inventory.showStock(), ['name', 'amount']);
+            menuPrompt();
+        }
+        if (answers.initialOptions === 'Sell a drink') {
+            const { flavor, size } = answers;
+            console.log(`\n${seller.sellDrink(flavor, size)}\n`);
+            // console.table(inventory.showStock(), ['name', 'amount'])
+            // console.clear();
+            menuPrompt();
+        }
+    });
+}
+menuPrompt();

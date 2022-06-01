@@ -7,7 +7,5 @@ class Drink {
         this.flavor = flavor;
         this.size = size;
     }
-    prepareDrink() {
-    }
 }
 exports.Drink = Drink;

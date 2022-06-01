@@ -16,7 +16,7 @@ export class Sells {
             const sell = new Sell(drink, 1);
             this.sellsList.push(sell)
             this.inventory.updateStock(drink);
-            return 'Selled'
+            return 'Drink Selled'
         }
         return 'There is no ingredients enough'
  

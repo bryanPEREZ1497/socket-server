@@ -15,7 +15,7 @@ class Sells {
             const sell = new sell_1.Sell(drink, 1);
             this.sellsList.push(sell);
             this.inventory.updateStock(drink);
-            return 'Selled';
+            return 'Drink Selled';
         }
         return 'There is no ingredients enough';
     }

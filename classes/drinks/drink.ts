@@ -11,7 +11,4 @@ export class Drink {
     ) {
     }
 
-    prepareDrink() {
-
-    }
 }
