@@ -47,7 +47,7 @@ const questions: QuestionCollection = [
         type: 'list',
         name: 'size',
         message: 'Select one size for the drink',
-        choices: ['Small', 'Medium', 'Large'],
+        choices: ['small', 'medium', 'large'],
         when(answers: { initialOptions: string; }) {
             return answers.initialOptions === 'Sell a drink';
         },
@@ -64,7 +64,7 @@ const questions: QuestionCollection = [
     },
 
 ]
-
+ 
 inquirer.prompt(questions).then((answers) => {
     console.log('\nInventory:');
     if (answers.initialOptions === 'Watch inventory') {
@@ -76,6 +76,9 @@ inquirer.prompt(questions).then((answers) => {
         const { flavor, size } = answers
 
         console.log(seller.sellDrink(flavor, size));
-    }
+        console.log(seller.sellsList);
+        console.table(inventory.showStock(), ['name', 'amount'])
+
+    } 
 
 });

@@ -31,7 +31,7 @@ const questions = [
         type: 'list',
         name: 'size',
         message: 'Select one size for the drink',
-        choices: ['Small', 'Medium', 'Large'],
+        choices: ['small', 'medium', 'large'],
         when(answers) {
             return answers.initialOptions === 'Sell a drink';
         },
@@ -55,5 +55,7 @@ inquirer_1.default.prompt(questions).then((answers) => {
     if (answers.initialOptions === 'Sell a drink') {
         const { flavor, size } = answers;
         console.log(seller.sellDrink(flavor, size));
+        console.log(seller.sellsList);
+        console.table(inventory.showStock(), ['name', 'amount']);
     }
 });
