@@ -1,7 +1,7 @@
-import Server from './classes/server';
-import router from './routes/router';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+// import Server from './classes/server';
+// import router from './routes/router';
+// import bodyParser from 'body-parser';
+// import cors from 'cors';
 
 
 
@@ -25,7 +25,7 @@ import cors from 'cors';
 //     console.log(`Servidor corriendo en el puerto ${ server.port }`);
 // });
 
-import inquirer, { Question, QuestionCollection } from 'inquirer';
+import inquirer, { QuestionCollection } from 'inquirer';
 import { Inventory } from './classes/drinks/inventory';
 import { Sells } from './classes/drinks/sells';
 
@@ -57,19 +57,46 @@ const questions: QuestionCollection = [
 
     },
     {
-        type: 'list',
+        type: 'checkbox',
         name: 'flavor',
-        message: 'Select one flavor for the drink',
-        choices: ['Banana', 'Strawberry', 'Mango'],
+        message: 'Select one o more flavors for the drink',
+        choices: [
+            {
+                name: 'Banana',
+
+                // checked: true,
+                // checked: true,
+                // disabled: 'out of stock',
+            },
+            {
+                name: 'Strawberry',
+            },
+            {
+                name: 'Mango',
+            }
+        ],
         when(answers: { initialOptions: string; }) {
             return answers.initialOptions === 'Sell a drink';
         },
-        filter(val: string) {
-            return val.toLowerCase();
+        validate(answer) {
+            if (answer.length < 1) {
+                return 'You must choose at least one flavor.';
+            } else if (answer.length === 1) {
+                //parse to string
+                return true
+
+            } else {
+                return true
+            }
+
         },
+        // filter(val:{name:string}) {
+        //     return val.name.toLowerCase();
+        // },
     },
 
 ]
+
 function menuPrompt(): void {
 
 
@@ -89,10 +116,9 @@ function menuPrompt(): void {
 
             if (answers.initialOptions === 'Sell a drink') {
                 const { flavor, size } = answers
+                console.log(flavor, size)
 
                 console.log(`\n${seller.sellDrink(flavor, size)}\n`);
-                // console.table(inventory.showStock(), ['name', 'amount'])
-                // console.clear();
                 menuPrompt();
 
             }

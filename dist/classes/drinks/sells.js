@@ -9,13 +9,17 @@ class Sells {
         this.sellsList = [];
     }
     sellDrink(flavor, size) {
-        const AreIngredientsAvailable = this.inventory.checkStock(flavor, size);
-        if (AreIngredientsAvailable) {
-            const drink = new drink_1.Drink(1, flavor, size);
-            const sell = new sell_1.Sell(drink, 1);
-            this.sellsList.push(sell);
-            this.inventory.updateStock(drink);
-            return 'Drink Selled';
+        if (flavor.length === 1) {
+            const flavorString = flavor[0];
+            const AreIngredientsAvailable = this.inventory.checkStock(flavorString, size);
+            if (AreIngredientsAvailable) {
+                const drink = new drink_1.Drink(1, flavorString, size);
+                const sell = new sell_1.Sell(drink, 1);
+                this.sellsList.push(sell);
+                this.inventory.updateStock(drink);
+                return 'Drink Selled';
+            }
+            return 'There is no ingredients enough';
         }
         return 'There is no ingredients enough';
     }
