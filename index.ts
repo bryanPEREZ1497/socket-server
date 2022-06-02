@@ -63,8 +63,6 @@ const questions: QuestionCollection = [
         choices: [
             {
                 name: 'Banana',
-
-                // checked: true,
                 // checked: true,
                 // disabled: 'out of stock',
             },
@@ -81,18 +79,12 @@ const questions: QuestionCollection = [
         validate(answer) {
             if (answer.length < 1) {
                 return 'You must choose at least one flavor.';
-            } else if (answer.length === 1) {
-                //parse to string
-                return true
-
-            } else {
-                return true
             }
-
+            return true
         },
-        // filter(val:{name:string}) {
-        //     return val.name.toLowerCase();
-        // },
+        filter(arr) {
+            return arr.map((el: string) => el.toLowerCase())
+        },
     },
 
 ]
@@ -104,7 +96,7 @@ function menuPrompt(): void {
         .then((answers) => {
 
             if (answers.initialOptions === 'Exit') {
-                console.log('\nGood Bye');
+                console.log('\nGood Bye\n');
                 return;
             }
 
@@ -116,10 +108,17 @@ function menuPrompt(): void {
 
             if (answers.initialOptions === 'Sell a drink') {
                 const { flavor, size } = answers
-                console.log(flavor, size)
 
-                console.log(`\n${seller.sellDrink(flavor, size)}\n`);
-                menuPrompt();
+                try {
+                    console.log('\nDrink Selected:\n', seller.sellDrink(flavor, size));
+                    menuPrompt();
+                    // console.log(`\n${seller.sellDrink(flavor, size)}\n`);
+
+                } catch (error) {
+                    console.log('There is no ingredients enough')
+                    menuPrompt();
+
+                }
 
             }
 

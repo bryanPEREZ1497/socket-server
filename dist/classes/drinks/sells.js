@@ -10,18 +10,25 @@ class Sells {
     }
     sellDrink(flavor, size) {
         if (flavor.length === 1) {
-            const flavorString = flavor[0];
-            const AreIngredientsAvailable = this.inventory.checkStock(flavorString, size);
+            const AreIngredientsAvailable = this.inventory.checkStock(flavor, size);
             if (AreIngredientsAvailable) {
-                const drink = new drink_1.Drink(1, flavorString, size);
+                const drink = new drink_1.Drink(1, flavor, size);
                 const sell = new sell_1.Sell(drink, 1);
                 this.sellsList.push(sell);
                 this.inventory.updateStock(drink);
-                return 'Drink Selled';
+                return drink;
             }
-            return 'There is no ingredients enough';
+            throw new Error("");
         }
-        return 'There is no ingredients enough';
+        const AreIngredientsAvailable = this.inventory.checkStock(flavor, size);
+        if (AreIngredientsAvailable) {
+            const drink = new drink_1.Drink(1, flavor, size);
+            const sell = new sell_1.Sell(drink, 1);
+            this.sellsList.push(sell);
+            this.inventory.updateStock(drink);
+            return drink;
+        }
+        throw new Error("");
     }
 }
 exports.Sells = Sells;

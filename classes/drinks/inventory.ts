@@ -1,6 +1,5 @@
 import { Drink } from "./drink";
 import { ingredients } from "./inventory-mock";
-import { drinkRecipes } from "./recipes-mock";
 import { operations } from "./operations";
 
 export class Inventory {
@@ -15,7 +14,7 @@ export class Inventory {
         operations.updateStock(drink, this.ingredientsList);
     }
 
-    checkStock(flavor: string, size: string): boolean {
+    checkStock(flavor: string[], size: string): boolean {
         return operations.checkStock(flavor, size, this.ingredientsList)
     }
 

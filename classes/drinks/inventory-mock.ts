@@ -1,32 +1,32 @@
-export const ingredients:Ingredient[] = [
+export const ingredients: Ingredient[] = [
     {
-        id:1,
-        name:'banana',
+        id: 1,
+        name: 'banana',
         amount: 4000
     },
     {
-        id:2,
-        name:'strawberry',
+        id: 2,
+        name: 'strawberry',
         amount: 4000
     },
     {
-        id:3,
-        name:'mango',
+        id: 3,
+        name: 'mango',
         amount: 4000
     },
     {
-        id:4,
-        name:'ice',
+        id: 4,
+        name: 'ice',
         amount: 7200
     },
     {
-        id:5,
-        name:'condensedMilk',
+        id: 5,
+        name: 'condensedMilk',
         amount: 3480
     },
     {
-        id:6,
-        name:'sugar',
+        id: 6,
+        name: 'sugar',
         amount: 1920
     },
 
