@@ -20,9 +20,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // });
 const inquirer_1 = __importDefault(require("inquirer"));
 const inventory_1 = require("./classes/drinks/inventory");
+const SalesObserverC_1 = require("./classes/drinks/SalesObserverC");
 const sells_1 = require("./classes/drinks/sells");
 const inventory = new inventory_1.Inventory();
-const seller = new sells_1.Sells(inventory);
+const seller = new sells_1.Sales(inventory);
+const observer = new SalesObserverC_1.SalesObserverC();
+const observer2 = new SalesObserverC_1.SalesObserverC();
+seller.attach(observer);
+seller.attach(observer2);
 console.log('Hi, welcome to your Selled Drinks Tracker ');
 const questions = [
     {

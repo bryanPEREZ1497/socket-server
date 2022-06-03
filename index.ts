@@ -28,11 +28,18 @@
 import inquirer, { QuestionCollection } from 'inquirer';
 import { Drink } from './classes/drinks/drink';
 import { Inventory } from './classes/drinks/inventory';
+import { SalesObserverC } from './classes/drinks/SalesObserverC';
 import { Sales } from './classes/drinks/sells';
 
 const inventory = new Inventory();
 
 const seller = new Sales(inventory);
+
+const observer = new SalesObserverC(); 
+const observer2 = new SalesObserverC(); 
+
+seller.attach(observer);
+seller.attach(observer2);
 
 console.log('Hi, welcome to your Selled Drinks Tracker ');
 

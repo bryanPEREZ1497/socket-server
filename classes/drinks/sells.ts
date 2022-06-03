@@ -1,5 +1,6 @@
 import { Drink } from "./drink";
 import { Inventory } from "./inventory";
+import { SalesObserverI } from "./SalesObserverI";
 import { Sell as Sale } from "./sell";
 
 export class Sales {
@@ -19,6 +20,7 @@ export class Sales {
                 const sell = new Sale(drink, 1);
                 this.sellsList.push(sell)
                 this.inventory.updateStock(drink);
+                this.notify();
                 return drink;
             }
             throw new Error("");
@@ -32,6 +34,8 @@ export class Sales {
             const sell = new Sale(drink, 1);
             this.sellsList.push(sell)
             this.inventory.updateStock(drink);
+            this.notify();
+
             return drink
         }
 
@@ -41,22 +45,36 @@ export class Sales {
 
     }
 
-    
-    private _observers : Observer[];
-    public get observers() : Observer[] {
+
+    private _observers: SalesObserverI[] = [];
+    public get observers(): SalesObserverI[] {
         return this._observers;
     }
-    public set observers(v : Observer[]) {
+    public set observers(v: SalesObserverI[]) {
         this._observers = v;
     }
-    
 
-    attach(observer: Observer): void;
 
-    // Detach an observer from the subject.
-    detach(observer: Observer): void;
+    attach(observer: SalesObserverI): void {
+        this._observers.push(observer)
+    };
 
-    // Notify all observers about an event.
-    notify(): void;
+    detach(observer: SalesObserverI): void {
+        const observerIndex = this.observers.indexOf(observer);
+        if (observerIndex === -1) {
+            // return console.log('Subject: Nonexistent observer.');
+            return;
+        }
+
+        this.observers.splice(observerIndex, 1);
+        // console.log('Subject: Detached an observer.');
+
+    };
+
+    notify(): void {
+        for (const observer of this._observers) {
+            observer.update(this);
+        }
+    };
 
 }
