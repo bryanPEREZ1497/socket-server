@@ -89,12 +89,12 @@ function menuPrompt() {
         if (answers.initialOptions === 'Sell a drink') {
             const { flavor, size } = answers;
             try {
-                console.log('\nDrink Selected:\n', seller.sellDrink(flavor, size));
+                const drinkSelled = seller.sellDrink(flavor, size);
+                console.log(`\nDrink Flavor: ${drinkSelled.flavor} \nSize ${drinkSelled.size}\n`);
                 menuPrompt();
-                // console.log(`\n${seller.sellDrink(flavor, size)}\n`);
             }
             catch (error) {
-                console.log('There is no ingredients enough');
+                console.log('\nThere is no ingredients enough\n');
                 menuPrompt();
             }
         }

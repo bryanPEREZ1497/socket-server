@@ -26,12 +26,13 @@
 // });
 
 import inquirer, { QuestionCollection } from 'inquirer';
+import { Drink } from './classes/drinks/drink';
 import { Inventory } from './classes/drinks/inventory';
-import { Sells } from './classes/drinks/sells';
+import { Sales } from './classes/drinks/sells';
 
 const inventory = new Inventory();
 
-const seller = new Sells(inventory);
+const seller = new Sales(inventory);
 
 console.log('Hi, welcome to your Selled Drinks Tracker ');
 
@@ -110,12 +111,13 @@ function menuPrompt(): void {
                 const { flavor, size } = answers
 
                 try {
-                    console.log('\nDrink Selected:\n', seller.sellDrink(flavor, size));
+                    const drinkSelled:Drink = seller.sellDrink(flavor, size);
+
+                    console.log(`\nDrink Flavor: ${drinkSelled.flavor} \nSize ${drinkSelled.size}\n`);
                     menuPrompt();
-                    // console.log(`\n${seller.sellDrink(flavor, size)}\n`);
 
                 } catch (error) {
-                    console.log('There is no ingredients enough')
+                    console.log('\nThere is no ingredients enough\n')
                     menuPrompt();
 
                 }

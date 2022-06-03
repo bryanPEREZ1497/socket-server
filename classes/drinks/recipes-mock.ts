@@ -1,3 +1,4 @@
+import { ingredients } from "./inventory-mock";
 import { Recipe } from "./Recipe";
 
 export const drinkRecipes: Recipe = {
@@ -12,15 +13,15 @@ export const drinkRecipes: Recipe = {
         },
         medium: {
             // drinkAmount: 600,
-            //10
-            blendedFruit: 300,//300 0
+            //10 units
+            blendedFruit: 300,//3000
             ice: 180,//1800,etc
             condensedMilk: 120,
             sugar: 48
         },
         large: {
             // drinkAmount: 900,
-            //7
+            //7 units
             blendedFruit: 450,//6750
             ice: 270,//4050
             condensedMilk: 180,//2700
@@ -28,4 +29,42 @@ export const drinkRecipes: Recipe = {
         },
     }
 
+}
+
+ingredients
+
+const costs = {
+    ice:{
+        per:30,
+        cost:1,
+        // amount: ingredients[3].amount,
+        total:ingredients[3].amount/30,
+        get getPer() {return this.cost},
+    },
+    condensedMilk:{
+        per:20,
+        cost:1
+    },
+    sugar:{
+        per:8,
+        cost:1
+    },
+    banana:{
+        per:2,
+        cost:1
+    },
+    strawberry:{
+        per:2,
+        cost:1
+    },
+    mango:{
+        per:2,
+        cost:1
+    },
+}
+
+const prices = {
+    small: 1,
+    medium: 1,
+    large: 1,
 }
