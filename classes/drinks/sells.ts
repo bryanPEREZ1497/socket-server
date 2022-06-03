@@ -1,13 +1,13 @@
 import { Drink } from "./drink";
 import { Inventory } from "./inventory";
-import { Sell } from "./sell";
+import { Sell as Sale } from "./sell";
 
-export class Sells {
+export class Sales {
     constructor(private inventory: Inventory) {
 
     }
 
-    sellsList: Sell[] = [];
+    sellsList: Sale[] = [];
 
     sellDrink(flavor: string[], size: string) {
         if (flavor.length === 1) {
@@ -16,7 +16,7 @@ export class Sells {
 
             if (AreIngredientsAvailable) {
                 const drink = new Drink(1, flavor, size);
-                const sell = new Sell(drink, 1);
+                const sell = new Sale(drink, 1);
                 this.sellsList.push(sell)
                 this.inventory.updateStock(drink);
                 return drink;
@@ -29,7 +29,7 @@ export class Sells {
 
         if (AreIngredientsAvailable) {
             const drink = new Drink(1, flavor, size);
-            const sell = new Sell(drink, 1);
+            const sell = new Sale(drink, 1);
             this.sellsList.push(sell)
             this.inventory.updateStock(drink);
             return drink
@@ -41,6 +41,22 @@ export class Sells {
 
     }
 
+    
+    private _observers : Observer[];
+    public get observers() : Observer[] {
+        return this._observers;
+    }
+    public set observers(v : Observer[]) {
+        this._observers = v;
+    }
+    
 
+    attach(observer: Observer): void;
+
+    // Detach an observer from the subject.
+    detach(observer: Observer): void;
+
+    // Notify all observers about an event.
+    notify(): void;
 
 }
