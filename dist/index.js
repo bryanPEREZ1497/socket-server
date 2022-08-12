@@ -7,6 +7,8 @@ const server_1 = __importDefault(require("./classes/server"));
 const router_1 = __importDefault(require("./routes/router"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+// import express from 'express';
+// const path = require('path');
 const server = server_1.default.instance;
 // BodyParser
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
@@ -15,9 +17,13 @@ server.app.use(body_parser_1.default.json());
 server.app.use((0, cors_1.default)({ origin: true, credentials: true }));
 // Rutas de servicios
 server.app.use('/', router_1.default);
+// server.app.use(express.static(__dirname + '/dist'));
 server.start(() => {
     console.log(`Servidor corriendo en el puerto ${server.port}`);
 });
+// server.app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname + '/dist/index.html'));
+// });
 // import inquirer, { QuestionCollection } from 'inquirer';
 // import { Drink } from './classes/drinks/drink';
 // import { Inventory } from './classes/drinks/inventory';
