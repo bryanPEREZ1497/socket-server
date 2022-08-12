@@ -78,14 +78,12 @@ exports.votes = votes;
 function questions(cliente, io) {
     cliente.on('questions', (payload, callback) => {
         if (!payload.title) {
-            console.log('no hay title');
             if (callback) {
                 callback({ ok: false });
             }
             (0, exports.emitAnswer)(io);
             return;
         }
-        console.log('si hhay title');
         exports.question.title = payload.title;
         exports.question.nosNumber = 0;
         exports.question.yesNumber = 0;

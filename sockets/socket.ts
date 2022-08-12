@@ -122,7 +122,6 @@ export function questions(cliente: Socket, io: socketIO.Server) {
     cliente.on('questions', (payload: { title: string }, callback?: Function) => {
 
         if (!payload.title) {
-            console.log('no hay title');
             if (callback) {
 
                 callback!({ ok: false });
@@ -132,7 +131,6 @@ export function questions(cliente: Socket, io: socketIO.Server) {
         }
 
 
-        console.log('si hhay title');
 
         question.title = payload.title!;
 
