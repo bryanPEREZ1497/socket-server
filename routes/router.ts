@@ -15,10 +15,11 @@ router.post('/grafica', (req: Request, res: Response, next) => {
     const server = Server.instance;
     const usuario = usuariosConectados.getUsuarioPorNombre(req.body.login.nombre);
     if (usuario?.yaVoto) {
-        res.json({
-            ok: false,
-            mensaje: 'Ya votaste'
-        });
+        res.status(400)
+            .json({
+                ok: false,
+                mensaje: 'Ya votaste'
+            });
     } else {
         const opcion = Number(req.body.opcion);
         const unidades = Number(req.body.unidades);
