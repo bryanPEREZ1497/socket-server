@@ -4,8 +4,10 @@ exports.questions = exports.votes = exports.emitAnswer = exports.obtenerUsuarios
 const usuarios_lista_1 = require("../classes/usuarios-lista");
 const usuario_1 = require("../classes/usuario");
 const question_1 = require("../classes/question");
+const grafica_1 = require("../classes/grafica");
 exports.usuariosConectados = new usuarios_lista_1.UsuariosLista();
 exports.question = new question_1.Question();
+const graficaData = grafica_1.GraficaData.instance;
 const conectarCliente = (cliente, io) => {
     const usuario = new usuario_1.Usuario(cliente.id);
     exports.usuariosConectados.agregar(usuario);
@@ -87,8 +89,8 @@ function questions(cliente, io) {
         exports.question.title = payload.title;
         exports.question.nosNumber = 0;
         exports.question.yesNumber = 0;
+        graficaData.resetValues();
         exports.usuariosConectados.nullVotes();
-        // console.log(question.title);
         (0, exports.emitAnswer)(io);
         if (callback) {
             callback({ ok: true });
@@ -96,3 +98,4 @@ function questions(cliente, io) {
     });
 }
 exports.questions = questions;
+//# sourceMappingURL=socket.js.map

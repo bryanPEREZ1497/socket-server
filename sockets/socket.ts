@@ -3,11 +3,11 @@ import socketIO from 'socket.io';
 import { UsuariosLista } from '../classes/usuarios-lista';
 import { Usuario } from '../classes/usuario';
 import { Question } from '../classes/question';
-
+import { GraficaData } from '../classes/grafica';
 
 export const usuariosConectados = new UsuariosLista();
 export let question = new Question();
-
+const graficaData = GraficaData.instance;
 
 export const conectarCliente = (cliente: Socket, io: socketIO.Server) => {
 
@@ -93,62 +93,41 @@ export const emitAnswer = (io: socketIO.Server) => {
 //Emit votes, receive votes 
 export function votes(cliente: Socket, io: socketIO.Server) {
     cliente.on('votes', (payload: { answer: ('yes' | 'no') }) => {
-
         if (!payload.answer.length) {
             emitAnswer(io);
+
             return;
         }
-
         if (!usuariosConectados.getUsuario(cliente.id)?.yaVoto) {
             usuariosConectados.votar(cliente.id, payload.answer);
-
             payload.answer === 'yes'
                 ? question.yesNumber++
                 : question.nosNumber++;
         }
-
-
         emitAnswer(io);
         io.emit('usuarios-activos', usuariosConectados.getLista());
-
-
-
-
     });
 }
 
 //Rename a question title
 export function questions(cliente: Socket, io: socketIO.Server) {
-    cliente.on('questions', (payload: { title: string }, callback?: Function) => {
-
-        if (!payload.title) {
-            if (callback) {
-
-                callback!({ ok: false });
+    cliente.on('questions',
+        (payload: { title: string }, callback?: Function) => {
+            if (!payload.title) {
+                if (callback) {
+                    callback!({ ok: false });
+                }
+                emitAnswer(io);
+                return;
             }
+            question.title = payload.title!;
+            question.nosNumber = 0;
+            question.yesNumber = 0;
+            graficaData.resetValues();
+            usuariosConectados.nullVotes();
             emitAnswer(io);
-            return;
-        }
-
-
-
-        question.title = payload.title!;
-
-        question.nosNumber = 0;
-        question.yesNumber = 0;
-
-        usuariosConectados.nullVotes();
-
-        // console.log(question.title);
-
-        emitAnswer(io);
-
-        if (callback) {
-
-            callback!({ ok: true });
-        }
-
-
-
-    });
+            if (callback) {
+                callback!({ ok: true });
+            }
+        });
 }

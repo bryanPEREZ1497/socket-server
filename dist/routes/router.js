@@ -8,17 +8,26 @@ const server_1 = __importDefault(require("../classes/server"));
 const socket_1 = require("../sockets/socket");
 const grafica_1 = require("../classes/grafica");
 const router = (0, express_1.Router)();
-const grafica = new grafica_1.GraficaData();
+const grafica = grafica_1.GraficaData.instance;
 router.get('/grafica', (req, res) => {
     res.json(grafica.getDataGrafica());
 });
-router.post('/grafica', (req, res) => {
-    const opcion = Number(req.body.opcion);
-    const unidades = Number(req.body.unidades);
-    grafica.incrementarValor(opcion, unidades);
+router.post('/grafica', (req, res, next) => {
     const server = server_1.default.instance;
-    server.io.emit('cambio-grafica', grafica.getDataGrafica());
-    res.json(grafica.getDataGrafica());
+    const usuario = socket_1.usuariosConectados.getUsuarioPorNombre(req.body.login.nombre);
+    if (usuario === null || usuario === void 0 ? void 0 : usuario.yaVoto) {
+        res.json({
+            ok: false,
+            mensaje: 'Ya votaste'
+        });
+    }
+    else {
+        const opcion = Number(req.body.opcion);
+        const unidades = Number(req.body.unidades);
+        grafica.incrementarValor(opcion, unidades);
+        server.io.emit('cambio-grafica', grafica.getDataGrafica());
+        res.json(grafica.getDataGrafica());
+    }
 });
 router.get('/mensajes', (req, res) => {
     res.json({
@@ -80,3 +89,4 @@ router.get('/usuarios/detalle', (req, res) => {
     });
 });
 exports.default = router;
+//# sourceMappingURL=router.js.map

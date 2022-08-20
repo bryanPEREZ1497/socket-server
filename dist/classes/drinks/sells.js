@@ -61,3 +61,4 @@ class Sales {
     ;
 }
 exports.Sales = Sales;
+//# sourceMappingURL=sells.js.map

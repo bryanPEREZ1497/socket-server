@@ -18,3 +18,4 @@ class Inventory {
     }
 }
 exports.Inventory = Inventory;
+//# sourceMappingURL=inventory.js.map

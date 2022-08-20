@@ -65,3 +65,4 @@ const prices = {
     medium: 1,
     large: 1,
 };
+//# sourceMappingURL=recipes-mock.js.map

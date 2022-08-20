@@ -6,3 +6,4 @@ class Ingredient {
         this.amount = amount;
     }
 }
+//# sourceMappingURL=ingredient.js.map

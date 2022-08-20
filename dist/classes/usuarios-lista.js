@@ -20,8 +20,6 @@ class UsuariosLista {
                 break;
             }
         }
-        console.log('===== Actualizando usuario ====');
-        console.log(this.lista);
     }
     // Obtener lista de usuarios
     getLista() {
@@ -30,6 +28,10 @@ class UsuariosLista {
     // Obtener un usuario
     getUsuario(id) {
         return this.lista.find(usuario => usuario.id === id);
+    }
+    // Obtener un usuario por nombre
+    getUsuarioPorNombre(nombre) {
+        return this.lista.find(usuario => usuario.nombre === nombre);
     }
     // Obtener usuario en una sala en particular
     getUsuariosEnSala(sala) {
@@ -67,3 +69,4 @@ class UsuariosLista {
     }
 }
 exports.UsuariosLista = UsuariosLista;
+//# sourceMappingURL=usuarios-lista.js.map

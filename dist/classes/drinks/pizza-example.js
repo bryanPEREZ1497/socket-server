@@ -91,3 +91,4 @@ inquirer_1.default.prompt(questions).then((answers) => {
     //   console.log('\nOrder receipt:');
     console.log(JSON.stringify(answers, null, '  '));
 });
+//# sourceMappingURL=pizza-example.js.map

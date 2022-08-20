@@ -6,6 +6,9 @@ class GraficaData {
         this.labels = [];
         this.valores = [0, 0];
     }
+    static get instance() {
+        return this._instance || (this._instance = new this());
+    }
     setLabels(labels) {
         this.labels = labels;
     }
@@ -16,5 +19,10 @@ class GraficaData {
         this.valores[opcion] += valor;
         return this.getDataGrafica();
     }
+    resetValues() {
+        this.valores = [0, 0];
+        return this.getDataGrafica();
+    }
 }
 exports.GraficaData = GraficaData;
+//# sourceMappingURL=grafica.js.map
