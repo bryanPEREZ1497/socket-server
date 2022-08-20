@@ -15,8 +15,10 @@ router.get('/grafica', (req, res) => {
 router.post('/grafica', (req, res, next) => {
     const server = server_1.default.instance;
     const usuario = socket_1.usuariosConectados.getUsuarioPorNombre(req.body.login.nombre);
+    console.log(socket_1.usuariosConectados);
     if (usuario === null || usuario === void 0 ? void 0 : usuario.yaVoto) {
-        res.json({
+        res.status(400)
+            .json({
             ok: false,
             mensaje: 'Ya votaste'
         });
