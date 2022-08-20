@@ -14,6 +14,7 @@ router.get('/grafica', (req: Request, res: Response) => {
 router.post('/grafica', (req: Request, res: Response, next) => {
     const server = Server.instance;
     const usuario = usuariosConectados.getUsuarioPorNombre(req.body.login.nombre);
+    console.log(usuariosConectados)
     if (usuario?.yaVoto) {
         res.status(400)
             .json({
